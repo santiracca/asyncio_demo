@@ -1,22 +1,25 @@
 import asyncio
 
 
-async def fetch_data(delay):
-  print(f'Starting fetching data with a delay of {delay} seconds')
+async def fetch_data(id, delay):
+  print(f"Coroutine started for id: {id}")
   await asyncio.sleep(delay)
-  print(f'Finished fetching data with a delay of {delay} seconds')
-  return {'data': 100}
+  return {"id": id, "title": f"Title for {id}"}
 
 
 ## coroutine function
 async def main():
-  task1 = fetch_data(2)
-  task2 = fetch_data(3)
+  task1 = asyncio.create_task(fetch_data(1, 2))
+  task2 = asyncio.create_task(fetch_data(2, 1))
+  task3 = asyncio.create_task(fetch_data(3, 3))
+
   result1 = await task1
-  print(f"Task 1 result: {result1}")
   result2 = await task2
-  print(f"Task 2 result: {result2}")
-  
+  result3 = await task3
+
+
+  print(result1, result2, result3)
+
 
 
 
